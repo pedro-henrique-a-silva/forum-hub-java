@@ -1,6 +1,7 @@
 package com.forum.hub.advice;
 
 import com.forum.hub.service.exceptions.CourseNotFoundException;
+import com.forum.hub.service.exceptions.TopicAlreadyExistsException;
 import com.forum.hub.service.exceptions.UserNotFoundException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,12 @@ public class GlobalControllerAdvice {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("curso não existe");
   }
 
-  @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+  @ExceptionHandler(
+      {
+          SQLIntegrityConstraintViolationException.class,
+          TopicAlreadyExistsException.class
+      }
+  )
   public ResponseEntity<String> constraintViolation(Exception e) {
     return ResponseEntity.status(HttpStatus.CONFLICT).body("Mensagem já cadastrada");
   }
