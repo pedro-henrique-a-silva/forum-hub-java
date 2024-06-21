@@ -2,6 +2,7 @@ package com.forum.hub.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,14 +43,14 @@ public class Topic {
   @Column(name = "estado_do_topico", columnDefinition = "tinyint DEFAULT(1)")
   private Boolean topicState;
 
-  @ManyToOne(targetEntity = User.class)
+  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
   @JoinColumn(name = "autor")
   private User autorTopic;
 
   @Transient
   private String nameAutor;
 
-  @ManyToOne(targetEntity = Course.class)
+  @ManyToOne(targetEntity = Course.class, fetch = FetchType.EAGER)
   @JoinColumn(name = "curso")
   private Course courseTopic;
 
